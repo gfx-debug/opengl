@@ -3,6 +3,7 @@ project(Game)
 
  cmake_minimum_required(VERSION 3.6)
  add_definitions(-DNEED_XPARSEGEOMETRY_IMPL)
+ ADD_DEFINITIONS(-DGLEW_STATIC)
  add_definitions(-DFREEGLUT_EXPORTS)
  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/freeglut/include)
 SET(FREEGLUT_HEADERS
@@ -70,7 +71,19 @@ file(GLOB MATH
         ${CMAKE_CURRENT_SOURCE_DIR}/math/*.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/math/*.h
 )
+
+
+file(GLOB GLEW
+        ${CMAKE_CURRENT_SOURCE_DIR}/glew-2.1.0/include/GL/glew.h
+		 ${CMAKE_CURRENT_SOURCE_DIR}/glew-2.1.0/include/GL/wglew.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/glew-2.1.0/src/glew.c
+)
+
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/glew-2.1.0/include)
+
 SOURCE_GROUP(glut_src FILES ${FREEGLUT_SRCS})
 SOURCE_GROUP(math_src FILES ${MATH})
+SOURCE_GROUP(glew_src FILES ${GLEW})
 
-add_executable(${PROJECT_NAME} ${FREEGLUT_SRCS} ${MATH} main.cpp)
+add_executable(${PROJECT_NAME} ${FREEGLUT_SRCS} ${MATH} ${GLEW} main.cpp)
